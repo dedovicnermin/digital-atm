@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    username: depaul
+    password: depaul
+    url: jdbc:postgresql://localhost:5432/digiATM
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    show-sql: true
+
+
+
+
+
+
+#protocol//[hosts][/database][?properties]

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Withdraw</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+</head>
+<body>
+
+<p>you are in withdraw</p>
+<form th:action="@{/withdraw}" th:object="${atm-request}" method="post">
+    <div class="mb-3">
+        <label for="amount" class="form-label">Withdraw amount</label>
+        <input type="number" class="form-control" id="amount" aria-describedby="withdrawHelp" name="amount">
+        <div id="withdrawHelp" class="form-text">Enter a positive amount for withdraw </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit Withdraw</button>
+</form>
+
+</body>
+</html>

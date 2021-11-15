@@ -1,0 +1,16 @@
+version: '3'
+services:
+  digtATM:
+    image: postgres:latest
+    container_name: digiATM
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=depaul
+      - POSTGRES_PASSWORD=depaul
+      - POSTGRES_DB=digiATM
+    volumes:
+      - ./scripts/schema.sql:/docker-entrypoint-initdb.d/1-schema.sql
+      - ./scripts/data.sql:/docker-entrypoint-initdb.d/2-data.sql
+
+
