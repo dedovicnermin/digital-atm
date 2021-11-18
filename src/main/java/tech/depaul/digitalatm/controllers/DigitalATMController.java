@@ -1,7 +1,6 @@
 package tech.depaul.digitalatm.controllers;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,7 +27,7 @@ public class DigitalATMController extends BaseController  {
 
     @GetMapping(value = "home")
     public String home(final Model model) {
-        final ATMUserDetails userDetails = retrieveUserDetails();
+        final ATMUserDetails userDetails = getCurrentUser();
         model.addAttribute("username", userDetails.getUsername());
         return "home";
     }
@@ -36,15 +35,16 @@ public class DigitalATMController extends BaseController  {
 
 
     @GetMapping(value = "/deposit")
-    public String getDeposit() {
+    public String getDeposit(final Model model) {
+        model.addAttribute("digitalAtmRequest", new DigitalATMRequest());
         return "deposit";
     }
 
     @PostMapping(value = "/deposit")
-    public String deposit(@ModelAttribute DigitalATMRequest request, final Model model) {
-        final ATMUserDetails atmUserDetails = retrieveUserDetails();
-        service.executeDepositOnAccount(request,atmUserDetails);
-        model.addAttribute("message", getSuccessMessage(atmUserDetails, request, ATMOperation.DEPOSIT));
+    public String deposit(@ModelAttribute DigitalATMRequest digitalAtmRequest, final Model model) {
+        final ATMUserDetails atmUserDetails = getCurrentUser();
+        service.executeDepositOnAccount(digitalAtmRequest,atmUserDetails);
+        model.addAttribute("message", getSuccessMessage(atmUserDetails, digitalAtmRequest, ATMOperation.DEPOSIT));
         return "success";
     }
 
@@ -52,15 +52,16 @@ public class DigitalATMController extends BaseController  {
 
 
     @GetMapping(value = "/withdraw")
-    public String getWithdraw() {
+    public String getWithdraw(final Model model) {
+        model.addAttribute("digitalAtmRequest", new DigitalATMRequest());
         return "withdraw";
     }
 
     @PostMapping(value = "/withdraw")
-    public String withdraw( @ModelAttribute(value = "atm-request") DigitalATMRequest request, final Model model) {
-        final ATMUserDetails atmUserDetails = retrieveUserDetails();
-        service.executeWithdrawOnAccount(request, atmUserDetails);
-        model.addAttribute("message", getSuccessMessage(atmUserDetails, request, ATMOperation.WITHDRAW));
+    public String withdraw(@ModelAttribute DigitalATMRequest digitalAtmRequest, final Model model) {
+        final ATMUserDetails atmUserDetails = getCurrentUser();
+        service.executeWithdrawOnAccount(digitalAtmRequest, atmUserDetails);
+        model.addAttribute("message", getSuccessMessage(atmUserDetails, digitalAtmRequest, ATMOperation.WITHDRAW));
         return "success";
     }
 
@@ -72,9 +73,7 @@ public class DigitalATMController extends BaseController  {
     }
 
 
-    private ATMUserDetails retrieveUserDetails() {
-        return (ATMUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-    }
+
 
     private String getSuccessMessage(ATMUserDetails userDetails, ATMRequest request, ATMOperation operation) {
         return operation.name() + " $" + request.getAmount()
