@@ -5,6 +5,7 @@ import tech.depaul.digitalatm.config.ATMUserDetails;
 import java.math.BigDecimal;
 
 public interface AccountManager {
-    void depositToAccount(ATMUserDetails userDetails, BigDecimal amount);
-    void withdrawFromAccount(ATMUserDetails userDetails, final BigDecimal amount);
+    void depositToAccount(final ATMUserDetails userDetails, final BigDecimal amount);
+    void withdrawFromAccount(final ATMUserDetails userDetails, final BigDecimal amount);
+    BigDecimal getAccountBalance(final ATMUserDetails userDetails);
 }

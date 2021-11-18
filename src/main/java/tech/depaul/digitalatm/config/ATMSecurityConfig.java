@@ -8,7 +8,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import tech.depaul.digitalatm.controllers.request.DigitalATMRequest;
 
 @Configuration
 @EnableWebSecurity
@@ -28,8 +27,6 @@ public class ATMSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
                 .invalidSessionUrl("/login");
-
-
     }
 
 
@@ -37,12 +34,6 @@ public class ATMSecurityConfig extends WebSecurityConfigurerAdapter {
     public PasswordEncoder passwordEncoder() {
         return NoOpPasswordEncoder.getInstance();
     }
-//
-//    @Bean
-//    public DigitalATMRequest atmRequest() {
-//        return new DigitalATMRequest();
-//    }
-
 
 }
 

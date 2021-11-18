@@ -68,7 +68,12 @@ public class DigitalATMController extends BaseController  {
 
 
     @GetMapping(value = "/balance")
-    public String getBalance() {
+    public String getBalance(final Model model)
+    {
+        final ATMUserDetails currentUser = getCurrentUser();
+        final String s = service.retrieveAccountBalance(currentUser);
+        model.addAttribute("balance", s);
+        model.addAttribute("username", currentUser.getUsername().toUpperCase());
         return "balance";
     }
 

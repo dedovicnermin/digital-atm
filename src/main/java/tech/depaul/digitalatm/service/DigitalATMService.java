@@ -23,20 +23,12 @@ public class DigitalATMService implements ATMService {
         accountManager.withdrawFromAccount(userDetails, amount);
     }
 
-
-
-
-
-
-    public void executeDepositOnAccount(ATMRequest request, ATMUserDetails userDetails) {
+    public void executeDepositOnAccount(final ATMRequest request, final ATMUserDetails userDetails) {
         final BigDecimal amount = validator.validate(request);
         accountManager.depositToAccount(userDetails, amount);
     }
 
-
-
-    @Override
-    public String retrieveAccountBalance(ATMUserDetails userDetails) {
-        return null;
+    public String retrieveAccountBalance(final ATMUserDetails userDetails) {
+        return accountManager.getAccountBalance(userDetails).toString();
     }
 }

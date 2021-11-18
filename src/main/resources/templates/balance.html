@@ -1,14 +1,80 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Balance</title>
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <style>
+
+        body {
+            height: 100vh;
+            width: 100vw;
+            margin-right: auto;
+            margin-left: auto;
+            margin-top: 10%;
+        }
+
+
+        .main-container {
+            margin-left: auto;
+            margin-right: auto;
+            width: 40%;
+            border: 2px solid #1d2124;
+            background-color: gray;
+        }
+
+        .header-container {
+            height: 15%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+            border-bottom: 1px solid black;
+            background-color: yellow;
+
+
+        }
+
+        .header {
+            width: 100%;
+            height: 80%;
+            text-align: center;
+            padding: 2px;
+            text-transform: capitalize;
+        }
+
+        .balance-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: "American Typewriter",serif;
+            height: 85%;
+        }
+
+        #balance-holder {
+            font-size: xx-large;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #balance {
+            margin: 10px;
+        }
+
+
+
+
+    </style>
 </head>
 <body>
 
-    <div class="container mx-auto">
-        <p>you are in balance</p>
+    <div class="main-container">
+        <div class="header-container">
+            <h3 class="header"> <span th:text="${username}">USER</span> BALANCE </h3>
+        </div>
+        <div class="balance-container">
+            <p id="balance-holder">$<span th:text="${balance}" id="balance"></span></p>
+        </div>
+
     </div>
 
 </body>
