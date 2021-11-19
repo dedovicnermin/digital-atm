@@ -4,51 +4,7 @@
     <meta charset="UTF-8">
     <title>Withdraw</title>
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
-    <style>
-
-        body {
-            height: 100vh;
-            width: 100vw;
-            margin-right: auto;
-            margin-left: auto;
-            margin-top: 10%;
-        }
-
-
-        .main-container {
-            margin-left: auto;
-            margin-right: auto;
-            width: 40%;
-            border: 2px solid #1d2124;
-            background-color: gray;
-        }
-
-        .header-container {
-            height: 15%;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-evenly;
-            border-bottom: 1px solid black;
-            background-color: yellow;
-
-
-        }
-
-        .header {
-            width: 100%;
-            height: 80%;
-            text-align: center;
-            padding: 2px;
-        }
-
-        .form-container {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            margin: 25px;
-        }
-    </style>
+    <link th:href="@{/css/app.css}" rel="stylesheet">
 </head>
 <body>
 <div class="main-container">
@@ -58,9 +14,9 @@
     <div class="form-container">
         <form action="#" th:action="@{/withdraw}" th:object="${digitalAtmRequest}" method="post">
             <label>$
-                <input type="number" th:field="*{amount}" placeholder="non-negative amount" required>
+                <input type="number" th:field="*{amount}" placeholder="non-negative amount" required class="text-input">
             </label>
-            <input type="submit" value="Execute" class="btn btn-secondary btn-sm">
+            <input type="submit" value="Execute" class="btn btn-secondary btn-md">
         </form>
     </div>
 

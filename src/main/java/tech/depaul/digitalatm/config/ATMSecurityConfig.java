@@ -8,6 +8,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.servlet.ViewResolver;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
 @EnableWebSecurity
@@ -35,6 +37,14 @@ public class ATMSecurityConfig extends WebSecurityConfigurerAdapter {
         return NoOpPasswordEncoder.getInstance();
     }
 
+    @Bean
+    public ViewResolver viewResolver () {
+        InternalResourceViewResolver viewResolver =
+                new InternalResourceViewResolver();
+        viewResolver.setPrefix("/templates");
+        viewResolver.setSuffix(".html");
+        return viewResolver;
+    }
 }
 
 
