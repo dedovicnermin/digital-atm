@@ -1,9 +1,11 @@
 package tech.depaul.digitalatm.controllers;
 
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Component;
 import tech.depaul.digitalatm.config.ATMUserDetails;
 
-public class BaseController {
+@Component
+public class SecurityService {
 
     public ATMUserDetails getCurrentUser() {
         return (ATMUserDetails) SecurityContextHolder.getContext()

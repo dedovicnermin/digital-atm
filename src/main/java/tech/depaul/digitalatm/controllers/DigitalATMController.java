@@ -16,9 +16,10 @@ import tech.depaul.digitalatm.service.DigitalATMService;
 
 @Controller
 @RequiredArgsConstructor
-public class DigitalATMController extends BaseController  {
+public class DigitalATMController {
 
-    private final DigitalATMService service;
+    private final DigitalATMService atmService;
+    private final SecurityService securityService;
 
     @GetMapping(value = "/")
     public RedirectView redirectToHome() {
@@ -27,7 +28,7 @@ public class DigitalATMController extends BaseController  {
 
     @GetMapping(value = "home")
     public String home(final Model model) {
-        final ATMUserDetails userDetails = getCurrentUser();
+        final ATMUserDetails userDetails = securityService.getCurrentUser();
         model.addAttribute("username", userDetails.getUsername());
         return "home";
     }
@@ -42,8 +43,8 @@ public class DigitalATMController extends BaseController  {
 
     @PostMapping(value = "/deposit")
     public String deposit(@ModelAttribute DigitalATMRequest digitalAtmRequest, final Model model) {
-        final ATMUserDetails atmUserDetails = getCurrentUser();
-        service.executeDepositOnAccount(digitalAtmRequest,atmUserDetails);
+        final ATMUserDetails atmUserDetails = securityService.getCurrentUser();
+        atmService.executeDepositOnAccount(digitalAtmRequest,atmUserDetails);
         model.addAttribute("message", getSuccessMessage(atmUserDetails, digitalAtmRequest, ATMOperation.DEPOSIT));
         return "success";
     }
@@ -59,8 +60,8 @@ public class DigitalATMController extends BaseController  {
 
     @PostMapping(value = "/withdraw")
     public String withdraw(@ModelAttribute DigitalATMRequest digitalAtmRequest, final Model model) {
-        final ATMUserDetails atmUserDetails = getCurrentUser();
-        service.executeWithdrawOnAccount(digitalAtmRequest, atmUserDetails);
+        final ATMUserDetails atmUserDetails = securityService.getCurrentUser();
+        atmService.executeWithdrawOnAccount(digitalAtmRequest, atmUserDetails);
         model.addAttribute("message", getSuccessMessage(atmUserDetails, digitalAtmRequest, ATMOperation.WITHDRAW));
         return "success";
     }
@@ -70,8 +71,8 @@ public class DigitalATMController extends BaseController  {
     @GetMapping(value = "/balance")
     public String getBalance(final Model model)
     {
-        final ATMUserDetails currentUser = getCurrentUser();
-        final String s = service.retrieveAccountBalance(currentUser);
+        final ATMUserDetails currentUser = securityService.getCurrentUser();
+        final String s = atmService.retrieveAccountBalance(currentUser);
         model.addAttribute("balance", s);
         model.addAttribute("username", currentUser.getUsername().toUpperCase());
         return "balance";
