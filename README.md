@@ -1,4 +1,4 @@
-#DigitalATM
+# DigitalATM
 
 ### Running the application
 1. navigate to directory `digital-atm/docker` from command line
